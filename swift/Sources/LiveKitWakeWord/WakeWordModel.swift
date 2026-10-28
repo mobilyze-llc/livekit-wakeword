@@ -25,6 +25,8 @@ public enum ExecutionProvider: Sendable, Equatable {
     case coreMLCPUOnly
     /// ORT's built-in CPU provider — CoreML EP is not appended.
     case cpu
+    /// ORT's built-in CPU provider with one intra-op thread and spinning off.
+    case cpuSingleThread
 }
 
 /// Stateless wake-word detector — pass PCM audio, get back per-model

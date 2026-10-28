@@ -43,6 +43,14 @@ enum ORTRuntime {
         switch provider {
         case .cpu:
             return options
+        case .cpuSingleThread:
+            do {
+                try options.setIntraOpNumThreads(1)
+                try options.addConfigEntry(withKey: "session.intra_op.allow_spinning", value: "0")
+            } catch {
+                throw WakeWordError.runtimeFailure(underlying: error)
+            }
+            return options
         case .coreML, .coreMLCPUAndGPU, .coreMLCPUOnly:
             let coremlOptions = ORTCoreMLExecutionProviderOptions()
             switch provider {
@@ -50,7 +58,7 @@ enum ORTRuntime {
                 coremlOptions.useCPUAndGPU = true
             case .coreMLCPUOnly:
                 coremlOptions.useCPUOnly = true
-            case .coreML, .cpu:
+            case .coreML, .cpu, .cpuSingleThread:
                 break
             }
             do {
