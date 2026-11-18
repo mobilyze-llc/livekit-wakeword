@@ -19,7 +19,7 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/microsoft/onnxruntime-swift-package-manager",
+            url: "https://github.com/mobilyze-llc/onnxruntime-swift-package-manager",
             from: "1.20.0"
         ),
     ],
